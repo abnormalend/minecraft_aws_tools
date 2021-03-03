@@ -8,6 +8,7 @@ This script will automatically download a version of paper (latest if no tags se
 
 ## Role permissions
 The following CDK will grant the instance permission to update it's own tags.  If not using CDK a similar policy can be made in IAM.
+
     minecraft_server_arn = core.Stack.of(self).format_arn(service="ec2", resource="instance", resource_name= minecraft_server.instance_id )
         
     role.attach_inline_policy(iam.Policy(self, "EC2 self access", statements = [iam.PolicyStatement(effect=iam.Effect.ALLOW,
