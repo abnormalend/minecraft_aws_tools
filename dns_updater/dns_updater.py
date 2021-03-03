@@ -4,31 +4,32 @@ import requests
 
 
 instance = requests.get("http://169.254.169.254/latest/meta-data/instance-id").text
-myMachine = None
-myZone = None
 ec2 = boto3.resource('ec2', region_name='us-east-1')
 myinstance = ec2.Instance(instance)
-for tag in myinstance.tags:
-    if tag["Key"] == "dns_hostname":
-        myMachine = tag["Value"]
-    elif tag["Key"] == "dns_zone":
-        myZone = tag['Value']
 
-# If both lookups didn't work, quit
-if not (myMachine and myZone):
-    print("failed to read tags, unable to update DNS")
-    exit(0)
+# Look up the Hostname tag
+try:
+    myMachine = next(t["Value"] for t in instance.tags if t["Key"] == "dns_hostname")
+except StopIteration:
+    print("Unable to locate tag 'dns_hostname', cannot continue")
+    exit(1)
+    
+# Look up the Hosted Zone tag
+try:
+    myZone = next(t["Value"] for t in instance.tags if t["Key"] == "dns_zone")
+except StopIteration:
+    print("Unable to locate tag 'dns_zone', cannot continue")
+    exit(1)
 
-myPublicIP = requests.get("http://169.254.169.254/latest/meta-data/public-ipv4")
-myCurrIP = myPublicIP.text
+myCurrIP = requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").text
 
+# Make a connection to Route53 to update the record
 conn53 = boto3.client('route53')
 myzone = conn53.list_hosted_zones()
-myzoneid = None
-for zone in myzone['HostedZones']:
-    if zone['Name'] == myZone:
-        myzoneid = zone['Id']
-if not myzoneid:
+
+try:
+    myzoneid = next(z["Id"] for z in myzone['HostedZones'] if z["Name"] == myZone)
+except StopIteration:
     print("Unable to find hosted zone in route53, unable to update DNS")
     exit(1)
 
