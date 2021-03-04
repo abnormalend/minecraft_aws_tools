@@ -1,0 +1,1 @@
+@reboot minecraft python3 $MINECRAFT_HOME/minecraft_aws_tools/paper_updater/paper_updater.py
