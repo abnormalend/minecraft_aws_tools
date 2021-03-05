@@ -1,2 +1,2 @@
-* * * * * minecraft /bsin/sh /opt/minecraft_aws_tools/playercount_metric/playercount_metric.sh
+* * * * * minecraft /bin/sh /opt/minecraft_aws_tools/playercount_metric/playercount_metric.sh
 
