@@ -1,2 +1,2 @@
-* * * * * minecraft $MINECRAFT_TOOLS_HOME/playercount_metric/playercount_metric.sh
+* * * * * minecraft /bin/sh $MINECRAFT_TOOLS_HOME/playercount_metric/playercount_metric.sh
 
