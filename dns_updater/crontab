@@ -1,1 +1,1 @@
-@reboot minecraft /usr/local/bin/dns_updater.py
+@reboot minecraft $MINECRAFT_TOOLS_HOME/dns_updater/dns_updater.py
