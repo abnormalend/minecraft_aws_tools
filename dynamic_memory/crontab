@@ -1,0 +1,1 @@
+@reboot minecraft /bin/sh /opt/minecraft_aws_tools/dynamic_memory/dynamic_memory.sh
