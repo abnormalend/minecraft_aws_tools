@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 import boto3
 import requests
-
+import os
 
 instance = requests.get("http://169.254.169.254/latest/meta-data/instance-id").text
-ec2 = boto3.resource('ec2', region_name='us-east-1')
+ec2 = boto3.resource('ec2', region_name=os.environ['REGION'])
 myinstance = ec2.Instance(instance)
 
 # Look up the Hostname tag
