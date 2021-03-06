@@ -1,6 +1,6 @@
 #!/bin/bash
 INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
-INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
+INSTANCE_TYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
 REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/region)
 
 SYSTEM_MEMORY=$(aws ec2 describe-instance-types --region=$REGION --instance-types '$INSTANCE_TYPE' --query 'InstanceTypes[0].MemoryInfo.SizeInMiB')
