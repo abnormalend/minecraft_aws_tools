@@ -9,14 +9,14 @@ myinstance = ec2.Instance(instance)
 
 # Look up the Hostname tag
 try:
-    myMachine = next(t["Value"] for t in instance.tags if t["Key"] == "dns_hostname")
+    myMachine = next(t["Value"] for t in myinstance.tags if t["Key"] == "dns_hostname")
 except StopIteration:
     print("Unable to locate tag 'dns_hostname', cannot continue")
     exit(1)
     
 # Look up the Hosted Zone tag
 try:
-    myZone = next(t["Value"] for t in instance.tags if t["Key"] == "dns_zone")
+    myZone = next(t["Value"] for t in myinstance.tags if t["Key"] == "dns_zone")
 except StopIteration:
     print("Unable to locate tag 'dns_zone', cannot continue")
     exit(1)
