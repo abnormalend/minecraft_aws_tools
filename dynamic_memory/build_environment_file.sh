@@ -9,7 +9,6 @@ MAXMEM=$(expr $SYSTEM_MEMORY - $RESERVED_MEMORY)
 MAXMEMUNIT="M"
 MCMAXMEM=$MAXMEM$MAXMEMUNIT
 
-echo "MCMAXMEM=$MCMAXMEM" > /opt/minecraft/server/server.conf
-echo "MCMINMEM=512M"  >> /opt/minecraft/server/server.conf
-echo "SHUTDOWN_DELAY=5"  >> /opt/minecraft/server/server.conf
-echo "POST_SHUTDOWN_DELAY=10" >> /opt/minecraft/server/server.conf
+if [ "$MAXMEM" -gt "1024" ]; then
+    sed -i "s/MCMAXMEM=.*/MCMAXMEM=$MCMAXMEM/g" /opt/minecraft/server/server.conf
+fi
