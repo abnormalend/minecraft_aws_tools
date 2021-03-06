@@ -11,4 +11,6 @@ MCMAXMEM=$MAXMEM$MAXMEMUNIT
 
 if [ "$MAXMEM" -gt "1024" ]; then
     sed -i "s/MCMAXMEM=.*/MCMAXMEM=$MCMAXMEM/g" /opt/minecraft/server/server.conf
+else
+    sed -i "s/MCMAXMEM=.*/MCMAXMEM=1024M/g" /opt/minecraft/server/server.conf
 fi
